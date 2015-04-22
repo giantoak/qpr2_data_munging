@@ -1,5 +1,5 @@
 ## What do we have here?
-These notebooks comprise a rough workflow for digesting JPL's Tika metadata, ISI's image similarity data, and ISI's ad text data into a number of data frames, which are then slipped into some exploratory visualizations. 
+These notebooks comprise a rough workflow for digesting JPL's Tika metadata, ISI's image similarity data, and ISI's ad text data into a number of data frames, which are then slipped into some exploratory visualizations.
 
 I wouldn't draw any immediate conclusions from any of these graphs at present, but they should provide a roadmap for going further with the ad data, both in terms of analysis and in terms of integrating data sources.
 
@@ -26,10 +26,22 @@ This notebook compiles the pickled dataframes produced by the other notebooks an
 
 
 ## Where could we take this for the next QPR?
-In general, I would say that for the next QPR we should try to provide 
+In general, I would say that for the next QPR we should try to provide
 * *at least one* model that can meaningfully cull bad ads *or* identify good ads
 * tests validating said models
 * workflows for applying said models to data.
 
-Some necessary steps for approaching this end:
-* Contacting the ISI
+Some necessary steps for approaching this end (this list may grow):
+* Contacting the ISI folks (Tao Chen / Pedro Szekely) about faster access to image similarity data and, if possible, access to pulls of similarities between two given images.
+* Integrating ISI's API for pulling down image similarities, once it comes online. (However, any text processing that we want to do ourselves might render their own text processing obsolete)
+* Building a system that automatically ties together solr queries to JPL and elasticsearch queries to ISI in order to build up a large set of samples.
+* Contacing CMU's background image search team in person to find out if we can get a trained copy of their model to use to code images. Since we have been staying away from raw image handling, perhaps we should make a match between them and ISI so that this gets done.
+* Find out from JPL if they possess a guide to how particular sets of metadata match the fingerprints of particular types of cameras. (At the QPR, it appeared that this doesn't exist. Might be worth verifying.)
+* Identify how/if particular websites determine particular camera metadata (e.g. image shape or resolution); if the metadata are predicted by website, they can be stripped and left out of any classifier we develop.
+* Identify how/if particular camera models determine particular camera metadata. (Labels *or* values.) If so these metadata can be stripped and left out of any classifier we develop in favor of the model identifiers.
+* Determine if image metadata can be used as a predictor for visual similarity.
+* Experiment with LDA and Naive Bayes as simple ways of identifying spam posts.
+* Determine if particular top-level domans in a URL can be used to predict that it's spam / not related to trafficking.
+* Develop a corpora of gold-standard ads that we know to be spam.
+* Develop a corpora of gold-standard ads that we know to be legitimate (e.g. from non trafficked people)
+* Develop a corpora of gold-standard ads that we know to be from trafficking victims.
